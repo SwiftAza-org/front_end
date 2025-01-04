@@ -4,37 +4,51 @@ import { Link, useHistory } from "react-router-dom";
 export default function Register() {
   const history = useHistory();
 
-  const handleNext = (e) => {
-    e.preventDefault();
-    history.push("/auth/createpin");
-  };
-
   const [formData, setFormData] = React.useState({
-    fullName: "",
+    fullname: "",
     email: "",
-    password: ""
+    password: "",
   });
+
+  const [error, setError] = React.useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Here you can add the code to submit the form data to the backend
-    console.log(formData);
-    handleNext(e);
+    setError(null); // Clear any previous errors
+
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Registration successful:", data);
+        history.push("/auth/createpin"); // Redirect to the next page
+      } else {
+        const errorData = await response.json();
+        setError(errorData.error || "Registration failed");
+      }
+    } catch (err) {
+      console.error("Error:", err);
+      setError("An unexpected error occurred. Please try again.");
+    }
   };
 
   return (
-    <div
-      className="container mx-auto px-4 h-screen flex items-center justify-center"
-      style={{ maxHeight: "100vh", overflow: "hidden" }}
-    >
+    <div className="container mx-auto px-4 h-screen flex items-center justify-center">
       <div className="relative flex flex-col w-full lg:w-6/12 px-4">
         <div className="bg-white rounded-my shadow-lg p-8">
           <a
@@ -43,23 +57,37 @@ export default function Register() {
           >
             ←
           </a>
-          <h2 className="text-2xl font-semibold mb-4 text-green text-aeonik">Create Account</h2>
-          <p className="text-sm text-blueGray-500 mb-6 font-semibold">Enter your details below.</p>
+          <h2 className="text-2xl font-semibold mb-4 text-green text-aeonik">
+            Create Account
+          </h2>
+          <p className="text-sm text-blueGray-500 mb-6 font-semibold">
+            Enter your details below.
+          </p>
+          {error && (
+            <div className="text-red-500 text-sm font-semibold mb-4">
+              {error}
+            </div>
+          )}
           <form onSubmit={handleSubmit}>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium mb-2 text-black font-semibold text-aeonik">Full Name</label>
+                <label className="block text-sm font-medium mb-2 text-black font-semibold text-aeonik">
+                  Full Name
+                </label>
                 <input
                   type="text"
-                  name="fullName"
-                  value={formData.fullName}
+                  name="fullname"
+                  value={formData.fullname}
                   onChange={handleChange}
                   placeholder="What should we call you?"
                   className="w-full px-3 py-2 border rounded-lg text-sm focus:ring focus:outline-none mb-1"
+                  required
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-2 text-black font-semibold text-aeonik">Email</label>
+                <label className="block text-sm font-medium mb-2 text-black font-semibold text-aeonik">
+                  Email
+                </label>
                 <input
                   type="email"
                   name="email"
@@ -67,10 +95,13 @@ export default function Register() {
                   onChange={handleChange}
                   placeholder="Where can we reach you?"
                   className="w-full px-3 py-2 border rounded-lg text-sm focus:ring focus:outline-none mb-1"
+                  required
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-2 text-black font-semibold text-aeonik">Password</label>
+                <label className="block text-sm font-medium mb-2 text-black font-semibold text-aeonik">
+                  Password
+                </label>
                 <input
                   type="password"
                   name="password"
@@ -78,6 +109,7 @@ export default function Register() {
                   onChange={handleChange}
                   placeholder="Make it strong, don't use 1-8"
                   className="w-full px-3 py-2 border rounded-lg text-sm focus:ring focus:outline-none mb-1"
+                  required
                 />
               </div>
 

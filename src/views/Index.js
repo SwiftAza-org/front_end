@@ -10,13 +10,18 @@ export default function Index() {
     <>
       <IndexNavbar fixed />
       <section className="header relative pt-16 items-center flex h-screen max-h-860-px">
-        <div className="container mx-auto items-center flex flex-wrap">
+        <div className="container mx-auto items-center flex flex-wrap justify-center">
           <div className="w-full md:w-8/12 lg:w-6/12 xl:w-6/12 px-4">
-            <div className="pt-32 sm:pt-0">
-              <h2 className="font-semibold text-4xl text-blueGray-600">
-                Welcome to SwiftAza - Your Gateway to Cryptocurrency.
-              </h2>
-              <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
+            <div className="pt-32 sm:pt-0 text-center">
+              <Link
+                  className="md:block text-center md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-3xl font-bold p-2 px-0"
+                  to="/"
+                  style={{ margin: "15px" }}
+                  >
+                  Swift<span style={{color: "#006A4E"}}>Aza</span>
+              </Link>
+
+              {/* <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
                 SwiftAza is your one-stop platform for all things cryptocurrency. 
                 Stay updated with the latest news, trends, and market analysis. 
                 Join our community and start your crypto journey today.
@@ -28,25 +33,11 @@ export default function Index() {
                 >
                   Get Started
                 </a>
-                <a
-                  href="/auth/login"
-                  className="github-star ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-700 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
-                  target="_blank"
-                >
-                  Login
-                </a>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
-
-        <img
-          className="absolute top-0 b-auto right-0 pt-16 sm:w-6/12 -mt-48 sm:mt-0 w-10/12 max-h-860px"
-          src={require("assets/img/landing_image.png")}
-          alt="Crypto"
-        />
       </section>
-      <Footer />
     </>
   );
 }
