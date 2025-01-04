@@ -25,7 +25,7 @@ export default function Register() {
     setError(null); // Clear any previous errors
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/register", {
+      const response = await fetch("http://127.0.0.1:8000/api/register/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -37,9 +37,16 @@ export default function Register() {
         const data = await response.json();
         console.log("Registration successful:", data);
         history.push("/auth/createpin"); // Redirect to the next page
+      } else if (response.status === 403) {
+        setError("You do not have permission to register.");
       } else {
-        const errorData = await response.json();
-        setError(errorData.error || "Registration failed");
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.indexOf("application/json") !== -1) {
+          const errorData = await response.json();
+          setError(errorData.error || "Registration failed");
+        } else {
+          setError("An unexpected error occurred. Please try again.");
+        }
       }
     } catch (err) {
       console.error("Error:", err);
