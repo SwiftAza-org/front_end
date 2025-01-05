@@ -45,5 +45,8 @@
   },
   "optionalDependencies": {
     "typescript": "4.2.3"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.2"
   }
 }

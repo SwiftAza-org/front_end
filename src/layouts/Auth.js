@@ -27,6 +27,17 @@ export default function Auth() {
             </section>
           </main>
         </Route>
+
+        <Route path="/auth/login" exact>
+          <main className="flex">
+            <div className="w-160 max-w-base">
+              <CreateAccountNavbar />
+            </div>
+            <section className="relative w-full h-full min-h-screen flex-grow bg-primary-color">
+              <Login />
+            </section>
+          </main>
+        </Route>
         
         <Route path="/auth/createpin" exact>
           <main className="flex">
