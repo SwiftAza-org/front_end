@@ -42,7 +42,8 @@ Use a better box model (opinionated).
 .fa-ghelp { mask-image: url('../img/get_help_icon.png'); -webkit-mask-image: url('../img/get_help_icon.png'); }
 .fa-lgout { mask-image: url('../img/logout_icon.png'); -webkit-mask-image: url('../img/logout_icon.png'); }
 .fa-bars { mask-image: url('../img/landing.jpg'); -webkit-mask-image: url('../img/landing.jpg'); }
-.fa-lightmode { mask-image: url('../img/light-dark-mode-switch-icon.png'); -webkit-mask-image: url('../img/light-dark-mode-switch-icon.png'); width: 40px; height: 24px;}
+.fa-lightmode { mask-image: url('../img/light_mode_switch_icon.png'); -webkit-mask-image: url('../img/light_mode_switch_icon.png'); width: 40px; height: 24px;}
+.fa-darkmode { mask-image: url('../img/dark_mode_switch_icon.png'); -webkit-mask-image: url('../img/dark_mode_switch_icon.png'); width: 40px; height: 24px;}
 .fa-bell { mask-image: url('../img/bell_icon.png'); -webkit-mask-image: url('../img/bell_icon.png'); }
 
 
@@ -1712,6 +1713,11 @@ select {
 .my-4 {
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+
+.mx-3 {
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
 }
 
 .mx-4 {

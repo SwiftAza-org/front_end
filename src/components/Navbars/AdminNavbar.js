@@ -49,7 +49,7 @@ export default function Navbar() {
             >
               <i
                 className={`fas ${
-                  theme === "light" ? "fa-lightmode" : "fa-lightmode"
+                  theme === "light" ? "fa-lightmode" : "fa-darkmode"
                 } text-yellow-500 dark:text-gray-300`}
               ></i>
             </a>
