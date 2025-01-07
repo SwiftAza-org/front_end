@@ -33,24 +33,25 @@ const VisibilityToggle = ({ hidden, onToggle }) => (
       src={require("../../assets/img/eye_viewing_icon.png")}
       alt={hidden ? "View Balance" : "Hide Balance"}
       className="rounded-full border-2 border-blueGray-50"
-      style={{ width: "16px", height: "16px", marginRight: "230px" }}
+      style={{ width: "16px", height: "16px", marginRight: "130px" }}
     />
   </a>
 );
 
 const AssetCard = ({ title, amount, description, image }) => (
   <div
-    className="flex flex-col justify-between bg-white bg-gray-100 rounded-lg p-3 shadow-md"
+    className="flex flex-col justify-between bg-white bg-gray-100 rounded-my p-3 shadow-md"
     style={{ 
       width: "190px", 
-      height: "172px", 
+      height: "150px", 
       borderRadius: "10px", 
       margin: "5px",
+      marginTop: "5px",
       minWidth: "100px" 
     }}
   >
-    <div style={{marginTop: "8%", marginLeft: "5%"}}>
-      <h6 className="text-lg font-bold mb-1" style={{ fontSize: "18px", lineHeight: "29px" }}>
+    <div style={{ marginTop: "8%", marginLeft: "5%" }}>
+      <h6 className="text-lg font-semibold mb-1" style={{ fontSize: "18px", lineHeight: "29px" }}>
         {title}
       </h6>
       <p className="text-sm text-blueGray-700" style={{ fontSize: "12px", lineHeight: "16px" }}>
@@ -87,95 +88,61 @@ export default function CardStats({
   const [hidden, setHidden] = useState(isHidden);
 
   return (
-    <div className="relative flex flex-col min-w-0 break-words w-full mb-6 rounded">
-      {/* Parent flex container for Portfolio and Assets */}
-      <div className="flex lg:flex-nowrap w-full" style={{ gap: "4%" }}>
-        {/* Portfolio Section */}
-        <div className="w-full lg:w-1/3">
-          <div className="flex justify-between items-center mb-4">
-            <h5 className="text-sm font-semibold">Portfolio</h5>
-          </div>
-          <div
-            className="relative flex flex-col bg-white rounded-my shadow-lg p-4 mb-8 xl:mb-0 w-full"
-            style={{
-              marginTop: "8%",
-              height: "172px",
-              minWidth: "376px",
-              width: "100%",
-            }}
-          >
-            {/* Portfolio Content */}
-            <div
-              className="flex items-center w-full"
-              style={{ height: "20px", marginLeft: "1%", marginTop: "8%" }}
-            >
-              <p className="text-sm text-blueGray-400 whitespace-nowrap overflow-hidden text-ellipsis">
-                {walletAddress}
-              </p>
-              <div className="flex ml-auto items-center space-x-2">
-                <Copya walletAddress={walletAddress} />
-                <WalletIcon />
+    <div className="relative flex flex-col min-w-0 break-words rounded mb-6 xl:mb-0">
+      <div className="flex-auto p-4">
+        {/* Container with responsive flex behavior */}
+        <div
+          className="container flex flex-col md:flex-row md:justify-between gap-4"
+          style={{ minWidth: "950px", width: "100%", minHeight: "170px", height: "100%", gap: "30px" }}
+        >
+          {/* Portfolio Section */}
+          <div className="relative flex-grow flex-1 " style={{ marginLeft: "-15px" }}>
+            <h5 className="text-black font-semibold test-sm">
+              Portfolio
+            </h5>
+            <div className="relative flex flex-col bg-white rounded-my shadow-lg p-4 mb-8 xl:mb-0 w-full mt-2" style={{ width: "100%", minHeight: "150px" }}>
+              <div className="flex items-center w-full" style={{ height: "20px", marginLeft: "1%", marginTop: "8%" }}>
+                <p className="text-sm text-blueGray-400 whitespace-nowrap overflow-hidden text-ellipsis">
+                  {walletAddress}
+                </p>
+                <div className="flex ml-auto items-center space-x-2">
+                  <Copya walletAddress={walletAddress} />
+                  <WalletIcon />
+                </div>
+              </div>
+              <div className="relative mt-4" style={{ width: "100%", height: "28%", marginLeft: "1%", marginTop: "10%" }}>
+                <span className="absolute top-0 left-0 text-sm">$</span>
+                <span className="font-semibold text-2xl text-blueGray-700 ml-4" style={{ marginLeft: "10px" }}>
+                  {hidden ? "••••••••" : walletBalance}
+                </span>
+                <VisibilityToggle hidden={hidden} onToggle={() => setHidden(!hidden)} />
               </div>
             </div>
-            <div
-              className="relative mt-4"
-              style={{
-                width: "100%",
-                height: "28%",
-                marginLeft: "1%",
-                marginTop: "10%",
-              }}
-            >
-              <span className="absolute top-0 left-0 text-sm">$</span>
-              <span
-                className="font-semibold text-2xl text-blueGray-700 ml-4"
-                style={{ marginLeft: "10px" }}
-              >
-                {hidden ? "********" : walletBalance}
-              </span>
-              <VisibilityToggle hidden={hidden} onToggle={() => setHidden(!hidden)} />
-            </div>
           </div>
-        </div>
   
-        {/* Assets Section */}
-          <div className="w-full lg:w-2/3 ml-50">
-            <div className="flex justify-between mb-3 relative">
-              <h5 className="text-sm font-semibold" style={{ marginLeft: "4%" }}>
-                Your Assets
-              </h5>
-              <div className="absolute right-0">
-                <a
-                  href="#"
-                  className="relative text-xs text-blue-500"
-                  style={{ fontWeight: "600", color: "purple", left: "150px" }}
-                >
-            View All
-                </a>
+          {/* Assets Section */}
+          <div className="relative flex-initial md:w-1/2">
+            <h5 className="text-black font-semibold text-sm">Your Assets</h5>
+            <a
+              href="#"
+              className="absolute text-xs text-purple-500 font-semibold"
+              style={{ right: 0, top: 0 }}
+            >
+              View All
+            </a>
+            <div className="relative overflow-x-auto mt-2">
+              <div className="flex flex-nowrap lg:flex-row gap-4">
+                {assets.map((asset, index) => (
+                  <AssetCard key={index} {...asset} />
+                ))}
               </div>
             </div>
-
-            <div
-              className="relative overflow-x-auto"
-              style={{
-                minWidth: "580px",
-                width: "100%",
-                height: "auto",
-                borderRadius: "20px",
-              // padding: "1rem",
-            }}
-          >
-            <div className="flex flex-nowrap lg:flex-row justify-start lg:justify-end gap-4">
-              {assets.map((asset, index) => (
-                <AssetCard key={index} {...asset} style={{ flex: "1 0 30%" }} />
-              ))}
-            </div>
+              
           </div>
         </div>
       </div>
     </div>
   );
-  
 }
 
 CardStats.defaultProps = {

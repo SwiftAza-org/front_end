@@ -13,80 +13,59 @@ import SecureWallet from "views/auth/Securewallet.js";
 import CreatePin from "views/auth/Createpin.js";
 import { PinProvider } from "../context/PinContext";
 
+const AuthLayout = ({ children, NavbarComponent }) => {
+  return (
+    <main className="flex flex-col md:flex-row min-h-screen">
+      <div className="w-full md:w-1/4 lg:w-1/5 xl:w-1/6">
+        <NavbarComponent />
+      </div>
+      <section className="relative w-full md:w-3/4 lg:w-4/5 xl:w-5/6 min-h-screen bg-primary-color">
+        {children}
+      </section>
+    </main>
+  );
+};
 
 export default function Auth() {
   return (
-    <>
-      <PinProvider>
-          <Switch>
-            <Route path="/auth/register" exact>
-              <main className="flex">
-                <div className="w-160 max-w-base">
-                  <CreateAccountNavbar />
-                </div>
-                <section className="relative w-full h-full min-h-screen flex-grow bg-primary-color">
-                  <Register />
-                </section>
-              </main>
-            </Route>
+    <PinProvider>
+      <Switch>
+        <Route path="/auth/register" exact>
+          <AuthLayout NavbarComponent={CreateAccountNavbar}>
+            <Register />
+          </AuthLayout>
+        </Route>
 
-            <Route path="/auth/login" exact>
-              <main className="flex">
-                <div className="w-160 max-w-base">
-                  <CreateAccountNavbar />
-                </div>
-                <section className="relative w-full h-full min-h-screen flex-grow bg-primary-color">
-                  <Login />
-                </section>
-              </main>
-            </Route>
-            
-            <Route path="/auth/createpin" exact>
-              <main className="flex">
-                <div className="w-160 max-w-base">
-                  <VerifyAccountNavBar />
-                </div>
-                <section className="relative w-full h-full min-h-screen flex-grow bg-primary-color">
-                  <CreatePin />
-                </section>
-              </main>
-            </Route>
+        <Route path="/auth/login" exact>
+          <AuthLayout NavbarComponent={CreateAccountNavbar}>
+            <Login />
+          </AuthLayout>
+        </Route>
 
-            <Route path="/auth/confirmpin" exact>
-              <main className="flex">
-                <div className="w-160 max-w-base">
-                  <VerifyAccountNavBar />
-                </div>
-                <section className="relative w-full h-full min-h-screen flex-grow bg-primary-color">
-                  <ConfirmPin />
-                </section>
-              </main>
-            </Route>
+        <Route path="/auth/createpin" exact>
+          <AuthLayout NavbarComponent={VerifyAccountNavBar}>
+            <CreatePin />
+          </AuthLayout>
+        </Route>
 
-            <Route path="/auth/createwallet" exact>
-              <main className="flex">
-                <div className="w-160 max-w-base">
-                  <VerifyAccountNavBar />
-                </div>
-                <section className="relative w-full h-full min-h-screen flex-grow bg-primary-color">
-                  <CreateWallet />
-                </section>
-              </main>
-            </Route>
+        <Route path="/auth/confirmpin" exact>
+          <AuthLayout NavbarComponent={VerifyAccountNavBar}>
+            <ConfirmPin />
+          </AuthLayout>
+        </Route>
 
-            <Route path="/auth/securewallet" exact>
-              <main className="flex">
-                <div className="w-160 max-w-base">
-                  <VerifyAccountNavBar />
-                </div>
-                <section className="relative w-full h-full min-h-screen flex-grow bg-primary-color">
-                  <SecureWallet />
-                </section>
-              </main>
-            </Route>
+        <Route path="/auth/createwallet" exact>
+          <AuthLayout NavbarComponent={VerifyAccountNavBar}>
+            <CreateWallet />
+          </AuthLayout>
+        </Route>
 
-          </Switch>
-      </PinProvider>
-    </>
+        <Route path="/auth/securewallet" exact>
+          <AuthLayout NavbarComponent={VerifyAccountNavBar}>
+            <SecureWallet />
+          </AuthLayout>
+        </Route>
+      </Switch>
+    </PinProvider>
   );
 }

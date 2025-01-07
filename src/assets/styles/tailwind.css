@@ -429,6 +429,18 @@ img {
   border-style: solid;
 }
 
+/* .responsive-wrap {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 4%;
+}
+
+@media (max-width: 640px) {
+  .responsive-wrap {
+    flex-wrap: wrap;
+  }
+} */
+
 textarea {
   resize: vertical;
 }
@@ -1821,6 +1833,10 @@ select {
 
 .ml-6 {
   margin-left: 1rem;
+}
+
+.ml-9 {
+  margin-left: 3rem;
 }
 
 .mb-6 {
